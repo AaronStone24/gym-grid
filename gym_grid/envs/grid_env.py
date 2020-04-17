@@ -13,17 +13,15 @@ import numpy as np
 class GridEnv(gym.Env):
     metadata={'render.modes':['human']}
     
-    def __init__(self,grid_rows,grid_columns,terminal_state): #terminal_state->list of list of the indices of terminal states
-        self.state=np.zeros((grid_rows,grid_columns))
-        self.n_rows=grid_rows
-        self.n_cols=grid_columns
-        self.terminal=terminal_state
+    def __init__(self): 
+        self.state=np.zeros((5,5))
+        self.terminal=[[0,0],[2,4],[4,1],[4,4]]
         self.reward=[-1,0]
         self.done=0
         self.counter=0
     
     def step(self,current_state,action): #current_state->a list of two numbers
-        next_state=[]  
+        next_state=current_state 
         if action=='up':
             if current_state[0]!=0:
                 next_state=[current_state[0]-1,current_state[1]]
@@ -41,17 +39,17 @@ class GridEnv(gym.Env):
         else:
             reward=self.reward[0]
         
-        return [next_state,reward]
+        return next_state,reward
         
-    def reset(self):
-        self.state=np.zeros((self.n_rows,self.n_cols))
+    def reset(self): ##terminal_state->list of list of the indices of terminal states
+        self.state=np.zeros((5,5))
         self.reward=[-1,0]
         self.done=0
-        self.counter=0   
+        self.counter=0
         
     def render(self,mode='human',close=False):
-        for i in range(self.n_rows):
-            for j in range(self.n_cols):
+        for i in range(5):
+            for j in range(5):
                 print(self.state[i][j]+" ")
             print("")
             
