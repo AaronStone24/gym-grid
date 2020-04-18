@@ -19,6 +19,9 @@ class GridEnv(gym.Env):
         self.reward=[-1,0]
         self.done=0
         self.counter=0
+        self.nS=25
+        self.nA=4 #Number of actions in the action space
+        self.action=('up','down','left','right')
     
     def step(self,current_state,action): #current_state->a list of two numbers
         next_state=current_state 
