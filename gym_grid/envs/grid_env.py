@@ -17,7 +17,7 @@ class GridEnv(gym.Env):
         self.state=np.zeros((5,5))
         self.terminal=[[0,0],[2,4],[4,1],[4,4]]
         self.reward=[-1,0]
-        self.done=0
+        self.done=False
         self.counter=0
         self.nS=25
         self.nA=4 #Number of actions in the action space
@@ -39,15 +39,16 @@ class GridEnv(gym.Env):
                 next_state=[current_state[0],current_state[1]+1]
         if next_state in self.terminal:
             reward=self.reward[1]
+            self.done=True
         else:
             reward=self.reward[0]
         
-        return next_state,reward
+        return next_state,reward,self.done
         
     def reset(self): ##terminal_state->list of list of the indices of terminal states
         self.state=np.zeros((5,5))
         self.reward=[-1,0]
-        self.done=0
+        self.done=False
         self.counter=0
         
     def render(self,mode='human',close=False):
